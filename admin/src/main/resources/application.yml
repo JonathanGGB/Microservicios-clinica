@@ -1,6 +1,24 @@
+#spring:
+#  cloud:
+#    config:
+#      uri: http://localhost:6001/
+#      enabled: true
+#  application:
+#    name: admin
+
+server:
+  port: ${random.int(6100,6199)}
+  servlet:
+    context-path: /admin
+    
 spring:
-  cloud:
-    config:
-      uri: http://localhost:6001/
-  application:
-    name: admin
+  datasource:
+     url: jdbc:mysql://localhost:3306/admin-db
+     username: root
+     password: 123456789
+     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update 
+   
