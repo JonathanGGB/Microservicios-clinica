@@ -8,7 +8,7 @@ spring:
         git:
           uri: https://github.com/JonathanGGB/Microservicios-clinica.git
           default-label: main
-          search-paths: config-data
+          search-paths: configuration-data
 
 server:
   port: 6001 
