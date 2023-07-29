@@ -7,7 +7,7 @@
 #    name: records
 
 server:
-  port: ${random.int(6200,6299)}
+  port: 6200
   servlet:
     context-path: /records
     

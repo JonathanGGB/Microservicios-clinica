@@ -1,15 +1,15 @@
 server:
- port: ${random.int(6100,6199)}
- servlet:
-  context-path: /admin
-  
+  port: ${random.int(6100,6199)}
+  servlet:
+    context-path: /admin
 spring:
- datasource:
-  url: jdbc:mysql://localhost:3306/admin-db
-  username: root
-  password: 123456789
-  driver-class-name: com.mysql.cj.jdbc.Driver
- jpa:
-  show-sql: true
-  hibernate:
-   ddl-auto: update
+  datasource:
+    dbcp2:
+      url: jdbc:mysql://localhost:3306/admin-db
+      username: root
+      password: 123456789
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
