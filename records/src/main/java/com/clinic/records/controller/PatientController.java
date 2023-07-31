@@ -82,8 +82,14 @@ public class PatientController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deletePatient(@PathVariable (value = "id") Long id) {
-		patientService.deletePatient(id);
+	public ResponseEntity<?> deletePatient(@PathVariable (value = "id") Long id) {
+		try {
+			patientService.deletePatient(id);
+			return new ResponseEntity<>("Patient's record deleted", HttpStatus.OK);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 	
 }
