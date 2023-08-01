@@ -19,7 +19,7 @@ import com.clinic.records.service.PatientService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping(value = "patient")
+@RequestMapping(value = "/patient")
 @Log4j2
 public class PatientController {
 	
