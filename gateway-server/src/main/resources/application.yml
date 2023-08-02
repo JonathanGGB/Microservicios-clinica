@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: gateway
+    
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: administration
+        uri: lb://ADMIN
+        predicates:
+        - Path=/admin/**
+        filters:
+        - name: CircuitBraker
+          args:
+            name: CortoCircuito
+            fallbackUri: forward:/error
+      - id: patient-records
+        uri: lb://RECORDS
+        predicates:
+        - Path=/records/**
+        filters:
+        - name: CircuitBraker
+          args:
+            name: CortoCircuito
+            fallbackUri: forward:/error
+      - id: patient-studies
+        uri: lb://STUDIES
+        predicates:
+        - Path =/studies/**
+        filters:
+        - name: CircuitBraker
+          args:
+            name: CortoCircuito
+            fallbackUri: forward:/error
+server:
+  port: 6002
+  servlet:
+    context-path: /clinic
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+           
+        
+          
+       
+          
