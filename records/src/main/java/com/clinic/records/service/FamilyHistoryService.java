@@ -47,7 +47,11 @@ public class FamilyHistoryService {
         throw new RecordsException("This family history does not exists");
     }
 
-    public void deleteFamilyHistory(Long id){
+    public void deleteFamilyHistory(Long id) throws Exception{
+        Optional<FamilyHistory> familyHistoryExist = familyHistoryRepository.findById(id);
+        if(!familyHistoryExist.isPresent()){
+            throw new RecordsException("No family history found for deletion");
+        }
         familyHistoryRepository.deleteById(id);
     }
 }

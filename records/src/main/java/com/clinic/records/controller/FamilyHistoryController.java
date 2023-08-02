@@ -63,7 +63,12 @@ public class FamilyHistoryController {
         try{
             familyHistoryService.deleteFamilyHistory(id);
             return new ResponseEntity<>("Family History deleted", HttpStatus.OK);
-        } catch (Exception e){
+        } catch (RecordsException ex) {
+            log.warn("No data");
+            log.error(ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
