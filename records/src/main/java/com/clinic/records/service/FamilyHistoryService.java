@@ -32,7 +32,7 @@ public class FamilyHistoryService {
             log.info("Created family history " + familyHistory.toString());
             return familyHistoryRepository.save(familyHistory);
         }
-        throw new RecordsException("There's an already existing family history with this patient.");
+        throw new RecordsException("There's already an existing family history for this patient.");
     }
 
     public FamilyHistory updateFamilyHistory(FamilyHistory familyHistory) throws RecordsException {
