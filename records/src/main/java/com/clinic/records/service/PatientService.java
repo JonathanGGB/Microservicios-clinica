@@ -53,7 +53,11 @@ public class PatientService {
 //		
 //	}
 	
-	public void deletePatient(Long id) {
+	public void deletePatient(Long id) throws Exception{
+		Optional<Patient> patientExists = patientRepository.findById(id);
+		if(!patientExists.isPresent()) {
+			throw new RecordsException("No patient found for deletion");
+		}
 		patientRepository.deleteById(id);
 	}
 	

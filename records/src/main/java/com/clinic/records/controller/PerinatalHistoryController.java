@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.clinic.records.entity.Patient;
+import com.clinic.records.entity.PerinatalHistory;
 import com.clinic.records.error.RecordsException;
-import com.clinic.records.service.PatientService;
+import com.clinic.records.service.PerinatalHistoryService;
 
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping(value = "/patient")
+@RequestMapping(value = "/perinatal-history")
 @Log4j2
-public class PatientController {
-	
-	@Autowired 
-	private PatientService patientService;
+public class PerinatalHistoryController {
+	@Autowired
+	private PerinatalHistoryService perinatalService;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllPatients() {
 		try {
-			return ResponseEntity.ok().body(patientService.getAllPatients());
+			return ResponseEntity.ok().body(perinatalService.getAllPerinatalHistories());
 		} catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -40,25 +40,11 @@ public class PatientController {
 		}
 	}
 	
-//	@GetMapping("/{name}")
-//	public ResponseEntity<?> getPatient(@PathVariable(name = "name") String name, @PathParam("lastnames") String lastnames ){
-//		try {
-//			return ResponseEntity.ok(body(patientService.getPatientByNameAndLastnames(name,lastnames)));
-//		}catch (RecordsException ex) {
-//			log.warn("No data");
-//			log.error(ex);
-//			return new ResponseEntity<>("No data found", HttpStatus.NO_CONTENT);
-//		} catch (Exception e) {
-//			log.error(e);
-//			throw new RuntimeException(e);
-//		}
-//	}
-	
 	@PostMapping
-	public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+	public ResponseEntity<?> createPatient(@RequestBody PerinatalHistory perinatalHistory) {
 		try {
-			log.info("Patient to create: "+ patient.toString());
-			return new ResponseEntity<>(patientService.createPatient(patient), HttpStatus.CREATED);
+			log.info("Perinatal History to create: "+ perinatalHistory.toString());
+			return new ResponseEntity<>(perinatalService.createPerinatalHistory(perinatalHistory), HttpStatus.CREATED);
 		} catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -69,9 +55,9 @@ public class PatientController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<?> updatePatient(@RequestBody Patient patient) {
+	public ResponseEntity<?> updatePatient(@RequestBody PerinatalHistory perinatalHistory) {
 		try {
-			return new ResponseEntity<>(patientService.updatePatient(patient), HttpStatus.OK);
+			return new ResponseEntity<>(perinatalService.updatePerinatalHistory(perinatalHistory), HttpStatus.OK);
 		}catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -84,8 +70,8 @@ public class PatientController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePatient(@PathVariable (value = "id") Long id) {
 		try {
-			patientService.deletePatient(id);
-			return new ResponseEntity<>("Patient's record deleted", HttpStatus.OK);
+			perinatalService.deletePerinatalHistory(id);
+			return new ResponseEntity<>("Perintal History's record deleted", HttpStatus.OK);
 		} catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -94,7 +80,5 @@ public class PatientController {
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
 	}
-	
 }
