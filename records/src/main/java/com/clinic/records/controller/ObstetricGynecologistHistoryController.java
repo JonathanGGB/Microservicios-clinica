@@ -47,7 +47,7 @@ public class ObstetricGynecologistHistoryController {
     @PutMapping
     public ResponseEntity<?> updateObstetricHistory(@RequestBody ObstetricGynecologistHistory obstetricGynecologistHistory){
         try{
-            return new ResponseEntity<>(obstetricGynecologistHistoryService.updateObstetricHistory(obstetricGynecologistHistory), HttpStatus.OK)
+            return new ResponseEntity<>(obstetricGynecologistHistoryService.updateObstetricHistory(obstetricGynecologistHistory), HttpStatus.OK);
         } catch (RecordsException ex) {
             log.warn("No data");
             log.error(ex);
