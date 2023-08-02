@@ -1,8 +1,8 @@
 package com.clinic.records.controller;
 
-import com.clinic.records.entity.FamilyHistory;
+import com.clinic.records.entity.PathologicalPersonalHistory;
 import com.clinic.records.error.RecordsException;
-import com.clinic.records.service.FamilyHistoryService;
+import com.clinic.records.service.PathologicalPersonalHistoryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,17 +10,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/family-history")
+@RequestMapping("/pathological-history")
 @Log4j2
-public class FamilyHistoryController {
+public class PathologicalPersonalHistoryController {
     @Autowired
-    private FamilyHistoryService familyHistoryService;
+    private PathologicalPersonalHistoryService pathologicalPersonalHistoryService;
 
     @GetMapping
-    public ResponseEntity<?> getAllFamilyHistories() {
+    public ResponseEntity<?> getAllPathologicalHistory(){
         try{
-            return ResponseEntity.ok().body(familyHistoryService.getAllFamilyHistories());
-        }catch(RecordsException ex){
+            return ResponseEntity.ok().body(pathologicalPersonalHistoryService.getAllPathologicalHistories());
+        }catch (RecordsException ex) {
             log.warn("No data");
             log.error(ex);
             return new ResponseEntity<>("No data found", HttpStatus.NO_CONTENT);
@@ -31,10 +31,10 @@ public class FamilyHistoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createFamilyHistory(@RequestBody FamilyHistory familyHistory){
+    public ResponseEntity<?> createPathologicalHistory(@RequestBody PathologicalPersonalHistory pathologicalPersonalHistory){
         try{
-            return new ResponseEntity<>(familyHistoryService.createFamilyHistory(familyHistory), HttpStatus.CREATED);
-        } catch (RecordsException ex) {
+            return new ResponseEntity<>(pathologicalPersonalHistoryService.createPathologicalHistory(pathologicalPersonalHistory), HttpStatus.CREATED);
+        }catch (RecordsException ex) {
             log.warn("No data");
             log.error(ex);
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
@@ -45,9 +45,9 @@ public class FamilyHistoryController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updateFamilyHistory(@RequestBody FamilyHistory familyHistory){
-        try {
-            return new ResponseEntity<>(familyHistoryService.updateFamilyHistory(familyHistory), HttpStatus.OK);
+    public ResponseEntity<?> updatePathologicalHistory(@RequestBody PathologicalPersonalHistory pathologicalPersonalHistory){
+        try{
+            return new ResponseEntity<>(pathologicalPersonalHistoryService.updatePathologicalHistory(pathologicalPersonalHistory), HttpStatus.OK);
         } catch (RecordsException ex) {
             log.warn("No data");
             log.error(ex);
@@ -58,11 +58,11 @@ public class FamilyHistoryController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteFamilyHistory(@PathVariable (value = "id") Long id){
+   @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletePathologicalHistory(@PathVariable (value = "id")Long id){
         try{
-            familyHistoryService.deleteFamilyHistory(id);
-            return new ResponseEntity<>("Family History deleted", HttpStatus.OK);
+            pathologicalPersonalHistoryService.deletePathologicalHistory(id);
+            return new ResponseEntity<>("Pathological personal history has been deleted", HttpStatus.OK);
         } catch (RecordsException ex) {
             log.warn("No data");
             log.error(ex);
@@ -72,5 +72,4 @@ public class FamilyHistoryController {
             throw new RuntimeException(e);
         }
     }
-
 }

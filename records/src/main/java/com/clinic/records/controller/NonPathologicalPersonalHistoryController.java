@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("non-pathological-history")
+@RequestMapping("/non-pathological-history")
 @Log4j2
 public class NonPathologicalPersonalHistoryController {
     @Autowired
