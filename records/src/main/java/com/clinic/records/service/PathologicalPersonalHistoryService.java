@@ -40,7 +40,7 @@ public class PathologicalPersonalHistoryService {
             throw new RecordsException("This pathological personal history can't be updated.");
         }
         Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExist = pathologicalPersonalHistoryRepository.findById(pathologicalPersonalHistory.getId());
-        if (!pathologicalPersonalHistoryExist.isPresent()){
+        if (pathologicalPersonalHistoryExist.isPresent()){
             log.info("Updated pathological personal history "+ pathologicalPersonalHistory.toString());
             pathologicalPersonalHistoryRepository.save(pathologicalPersonalHistory);
         }
