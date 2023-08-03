@@ -41,7 +41,7 @@ public class PatientRecordService {
 		recordsDto.setPathologicalPersonalHistoryDto(pathologicalPersonalHistoryService
 				.getPathologicalPersonalHistoryDtoByPatientId(patient.getId()));
 		recordsDto.setNonPathPersHistoryDto(nonPathologicalPersonalHistoryService
-				.getAllNonPathologicalHistory());
+				.getNonPathPersHistoryDtoByPatientId(patient.getId()));
 		return recordsDto;
 		
 	}
