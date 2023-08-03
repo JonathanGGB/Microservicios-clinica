@@ -25,7 +25,7 @@ public class PerinatalHistory {
 	@Column(name = "patient_id")
 	private Long patientId;
 	@Column(name = "gestation_weeks", nullable = false)
-	private int gestattionWeeks;
+	private int gestationWeeks;
 	@Column(name = "apgar", length = 255)
 	private String apgar;
 	@Column(name = "weigh", nullable = false)

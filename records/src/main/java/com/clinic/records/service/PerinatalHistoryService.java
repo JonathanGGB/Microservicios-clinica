@@ -17,11 +17,11 @@ import java.util.Optional;
 @Log4j2
 public class PerinatalHistoryService {
 	@Autowired 
-	private PerinatalHistoryRepository perinatalRepository;
+	private PerinatalHistoryRepository perinatalHistoryRepository;
 	
 	public PerinatalHistory createPerinatalHistory(PerinatalHistory perinatalHistory) throws Exception {
-		Optional<PerinatalHistory> perinatalHistoryExists = perinatalRepository
-				.findByPatient_Id(perinatalHistory.getPatientId());
+		Optional<PerinatalHistory> perinatalHistoryExists = perinatalHistoryRepository
+				.findByPatientId(perinatalHistory.getPatientId());
 		if(!perinatalHistoryExists.isPresent()) {
 			log.info("Create PerintalHistory: " + perinatalHistory.toString());
 		}
@@ -32,17 +32,17 @@ public class PerinatalHistoryService {
 		if(perinatalHistory.getId() == null) {
 			throw new RecordsException("This perinatal history cannot be updated");
 		}
-		Optional<PerinatalHistory > perinatalHistoryExists = perinatalRepository
-				.findByIdAndPatient_Id(perinatalHistory.getId(), perinatalHistory.getPatientId());
+		Optional<PerinatalHistory > perinatalHistoryExists = perinatalHistoryRepository
+				.findByIdAndPatientId(perinatalHistory.getId(), perinatalHistory.getPatientId());
 		if(perinatalHistoryExists.isPresent()) {
 			log.info("Update Perinatal History: "+ perinatalHistory.toString());
-			return perinatalRepository.save(perinatalHistory);
+			return perinatalHistoryRepository.save(perinatalHistory);
 		}
 		throw new RecordsException("This patient's perinatal history does not exists");
 	}
 	
 	public List<PerinatalHistory> getAllPerinatalHistories() throws Exception {
-		List<PerinatalHistory> histories = perinatalRepository.findAll();
+		List<PerinatalHistory> histories = perinatalHistoryRepository.findAll();
 		if(histories.isEmpty()) {
 			throw new RecordsException("No histories found");
 		}
@@ -50,10 +50,10 @@ public class PerinatalHistoryService {
 	}
 	
 	public void deletePerinatalHistory(Long id) throws Exception {
-		Optional<PerinatalHistory> historyExists = perinatalRepository.findById(id);
+		Optional<PerinatalHistory> historyExists = perinatalHistoryRepository.findById(id);
 		if(!historyExists.isPresent()) {
 			throw new RecordsException("No history found for deletion");
 		}
-		perinatalRepository.deleteById(id);
+		perinatalHistoryRepository.deleteById(id);
 	}
 }

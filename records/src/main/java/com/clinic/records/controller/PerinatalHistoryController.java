@@ -24,12 +24,12 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class PerinatalHistoryController {
 	@Autowired
-	private PerinatalHistoryService perinatalService;
+	private PerinatalHistoryService perinatalHistoryService;
 	
 	@GetMapping
 	public ResponseEntity<?> getAllPatients() {
 		try {
-			return ResponseEntity.ok().body(perinatalService.getAllPerinatalHistories());
+			return ResponseEntity.ok().body(perinatalHistoryService.getAllPerinatalHistories());
 		} catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -44,7 +44,7 @@ public class PerinatalHistoryController {
 	public ResponseEntity<?> createPatient(@RequestBody PerinatalHistory perinatalHistory) {
 		try {
 			log.info("Perinatal History to create: "+ perinatalHistory.toString());
-			return new ResponseEntity<>(perinatalService.createPerinatalHistory(perinatalHistory), HttpStatus.CREATED);
+			return new ResponseEntity<>(perinatalHistoryService.createPerinatalHistory(perinatalHistory), HttpStatus.CREATED);
 		} catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -57,7 +57,7 @@ public class PerinatalHistoryController {
 	@PutMapping
 	public ResponseEntity<?> updatePatient(@RequestBody PerinatalHistory perinatalHistory) {
 		try {
-			return new ResponseEntity<>(perinatalService.updatePerinatalHistory(perinatalHistory), HttpStatus.OK);
+			return new ResponseEntity<>(perinatalHistoryService.updatePerinatalHistory(perinatalHistory), HttpStatus.OK);
 		}catch (RecordsException ex) {
 			log.warn("No data");
 			log.error(ex);
@@ -70,7 +70,7 @@ public class PerinatalHistoryController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePatient(@PathVariable (value = "id") Long id) {
 		try {
-			perinatalService.deletePerinatalHistory(id);
+			perinatalHistoryService.deletePerinatalHistory(id);
 			return new ResponseEntity<>("Perintal History's record deleted", HttpStatus.OK);
 		} catch (RecordsException ex) {
 			log.warn("No data");

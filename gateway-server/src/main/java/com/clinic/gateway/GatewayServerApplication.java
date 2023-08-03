@@ -14,6 +14,11 @@ public class GatewayServerApplication {
 		
 	}
 	
+	@GetMapping("/prueba")
+	public String prueba() {
+		return "Conexión de prueba";
+	}
+	
 	@GetMapping("/error")
 	public String error(){
 		return "Servicio de la clínica no está disponible por el momento.";
