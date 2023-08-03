@@ -32,9 +32,8 @@ public class ObstetricGynecologistHistory {
     private int abortions;
     @Column(name = "cesareans", nullable = false)
     private int cesareans;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private Patient patient;
+    @Column(name = "patient_id", nullable = false)
+    private Long patientId;
 
 
 

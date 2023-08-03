@@ -4,6 +4,8 @@ import com.clinic.records.entity.ObstetricGynecologistHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.ObstetricGynecologistHistoryRepository;
+import com.clinic.records.repository.PatientRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class ObstetricGynecologistHistoryService {
     @Autowired
     private ObstetricGynecologistHistoryRepository obstetricGynecologistHistoryRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     public List<ObstetricGynecologistHistory> getAllObstetricHistory() throws RecordsException {
         List<ObstetricGynecologistHistory> obstetricGynecologistHistories = obstetricGynecologistHistoryRepository.findAll();
@@ -26,9 +30,10 @@ public class ObstetricGynecologistHistoryService {
     }
 
     public ObstetricGynecologistHistory createObstetricHistory(ObstetricGynecologistHistory obstetricGynecologistHistory) throws RecordsException {
-        Patient patient = obstetricGynecologistHistory.getPatient();
-        Optional<ObstetricGynecologistHistory> obstetricGynecologistHistoryExist = obstetricGynecologistHistoryRepository.findObstetricGynecologistHistoryByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
-        if((!obstetricGynecologistHistoryExist.isPresent()) && (patient.isSex())){
+        Optional<Patient> patientExists = patientRepository.findById(obstetricGynecologistHistory.getPatientId());  
+        Optional<ObstetricGynecologistHistory> obstetricGynecologistHistoryExist = obstetricGynecologistHistoryRepository
+        		.findByPatientId(obstetricGynecologistHistory.getPatientId());
+        if((patientExists.isPresent())&&(!obstetricGynecologistHistoryExist.isPresent()) && (patientExists.get().isSex())){
             log.info("Created obstetric-gynecologist history: "+ obstetricGynecologistHistory.toString());
             return obstetricGynecologistHistoryRepository.save(obstetricGynecologistHistory);
         }

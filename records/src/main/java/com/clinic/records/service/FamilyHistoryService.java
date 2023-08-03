@@ -4,6 +4,8 @@ import com.clinic.records.entity.FamilyHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.FamilyHistoryRepository;
+import com.clinic.records.repository.PatientRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class FamilyHistoryService {
     @Autowired
     private FamilyHistoryRepository familyHistoryRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     public List<FamilyHistory> getAllFamilyHistories() throws RecordsException {
         List<FamilyHistory> familyHistories = familyHistoryRepository.findAll();
@@ -26,9 +30,9 @@ public class FamilyHistoryService {
     }
 
     public FamilyHistory createFamilyHistory(FamilyHistory familyHistory) throws RecordsException {
-        Patient patient = familyHistory.getPatient();
-        Optional<FamilyHistory> familyHistoryExist = familyHistoryRepository.findByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
-        if(!familyHistoryExist.isPresent()){
+    	Optional<Patient> patientExists = patientRepository.findById(familyHistory.getPatientId());
+        Optional<FamilyHistory> familyHistoryExist = familyHistoryRepository.findByPatientId(familyHistory.getPatientId());
+        if((patientExists.isPresent()) && (!familyHistoryExist.isPresent())){
             log.info("Created family history " + familyHistory.toString());
             return familyHistoryRepository.save(familyHistory);
         }

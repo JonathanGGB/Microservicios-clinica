@@ -4,6 +4,8 @@ import com.clinic.records.entity.NonPathologicalPersonalHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.NonPathologicalPersonalHistoryRepository;
+import com.clinic.records.repository.PatientRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,8 @@ import java.util.Optional;
 public class NonPathologicalPersonalHistoryService {
     @Autowired
     private NonPathologicalPersonalHistoryRepository nonPathologicalPersonalHistoryRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     public List<NonPathologicalPersonalHistory> getAllNonPathologicalHistory() throws RecordsException {
         List<NonPathologicalPersonalHistory> nonPathologicalPersonalHistories = nonPathologicalPersonalHistoryRepository.findAll();
@@ -27,9 +31,10 @@ public class NonPathologicalPersonalHistoryService {
     }
 
     public NonPathologicalPersonalHistory createNonPathologicalHistory(NonPathologicalPersonalHistory nonPathologicalPersonalHistory) throws RecordsException {
-        Patient patient = nonPathologicalPersonalHistory.getPatient();
-        Optional<NonPathologicalPersonalHistory> nonPathologicalPersonalHistoryExist = nonPathologicalPersonalHistoryRepository.findByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
-        if(!nonPathologicalPersonalHistoryExist.isPresent()){
+        Optional<Patient> patientExists = patientRepository.findById(nonPathologicalPersonalHistory.getPatientId());
+        Optional<NonPathologicalPersonalHistory> nonPathologicalPersonalHistoryExist = nonPathologicalPersonalHistoryRepository
+        		.findByPatientId(nonPathologicalPersonalHistory.getPatientId());
+        if((patientExists.isPresent())&&(!nonPathologicalPersonalHistoryExist.isPresent())){
             log.info("Created non-pathological personal history "+ nonPathologicalPersonalHistory.toString());
             return nonPathologicalPersonalHistoryRepository.save(nonPathologicalPersonalHistory);
         }
