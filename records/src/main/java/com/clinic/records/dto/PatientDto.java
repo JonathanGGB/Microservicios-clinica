@@ -15,4 +15,12 @@ public class PatientDto {
 	private String maritalStatus;
 	private String schooling;
 	private String occupation;
+	
+	public void setSex(boolean isSex) {
+		if(isSex) {
+			this.sex = "Femenino";
+		}else {
+			this.sex = "Masculino";
+		}
+	}
 }

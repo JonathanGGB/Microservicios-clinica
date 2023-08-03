@@ -1,6 +1,8 @@
 package com.clinic.records.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -57,4 +59,15 @@ public class Patient {
 		}
 	}
 	
+	public int getAge() {
+		LocalDate birthDate = this.birthday.toLocalDateTime().toLocalDate();
+		LocalDate currentDate = LocalDate.now(); 
+		int age = 0;
+		
+		if((birthDate != null) && (currentDate != null)) {
+			age = Period.between(birthDate, currentDate).getYears();
+		}
+		
+		return age;
+	}
 }

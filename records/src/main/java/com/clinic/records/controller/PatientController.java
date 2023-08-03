@@ -40,22 +40,24 @@ public class PatientController {
 		}
 	}
 	
-//	@GetMapping("/{name}")
-//	public ResponseEntity<?> getPatient(@PathVariable(name = "name") String name, @PathParam("lastnames") String lastnames ){
-//		try {
-//			return ResponseEntity.ok(body(patientService.getPatientByNameAndLastnames(name,lastnames)));
-//		}catch (RecordsException ex) {
-//			log.warn("No data");
-//			log.error(ex);
-//			return new ResponseEntity<>("No data found", HttpStatus.NO_CONTENT);
-//		} catch (Exception e) {
-//			log.error(e);
-//			throw new RuntimeException(e);
-//		}
-//	}
 	
+	@GetMapping(value = "/{email}")
+	public ResponseEntity<?> findByEmail(@PathVariable("email") String email) {
+		try {
+			return ResponseEntity.ok().body(patientService.getPatientByEmail(email));
+		} catch (RecordsException ex) {
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			log.error(e);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+
 	@PostMapping
-	public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
+	public ResponseEntity createPatient(@RequestBody Patient patient) {
 		try {
 			log.info("Patient to create: "+ patient.toString());
 			return new ResponseEntity<>(patientService.createPatient(patient), HttpStatus.CREATED);
@@ -69,7 +71,7 @@ public class PatientController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<?> updatePatient(@RequestBody Patient patient) {
+	public ResponseEntity updatePatient(@RequestBody Patient patient) {
 		try {
 			return new ResponseEntity<>(patientService.updatePatient(patient), HttpStatus.OK);
 		}catch (RecordsException ex) {
@@ -82,7 +84,7 @@ public class PatientController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletePatient(@PathVariable (value = "id") Long id) {
+	public ResponseEntity deletePatient(@PathVariable (value = "id") Long id) {
 		try {
 			patientService.deletePatient(id);
 			return new ResponseEntity<>("Patient's record deleted", HttpStatus.OK);

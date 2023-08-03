@@ -30,9 +30,11 @@ public class PathologicalPersonalHistoryService {
     }
 
     public PathologicalPersonalHistory createPathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
-        Patient patient = patientRepository.getById(pathologicalPersonalHistory.getPatientId());
-        Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExist = pathologicalPersonalHistoryRepository.findByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
-        if(!pathologicalPersonalHistoryExist.isPresent()){
+        Optional<Patient> patientExists = patientRepository.findById(pathologicalPersonalHistory.getPatientId());
+        Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExists = pathologicalPersonalHistoryRepository
+        		.findByPatientId(pathologicalPersonalHistory.getPatientId());
+        
+        if((patientExists.isPresent()) && (!pathologicalPersonalHistoryExists.isPresent()) ){
             log.info("Created Pathological Personal History: "+pathologicalPersonalHistory.toString());
             return pathologicalPersonalHistoryRepository.save(pathologicalPersonalHistory);
         }
@@ -40,7 +42,7 @@ public class PathologicalPersonalHistoryService {
     }
 
     public PathologicalPersonalHistory updatePathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
-        if (patientRepository.getById(pathologicalPersonalHistory.getPatientId()) == null){
+        if (pathologicalPersonalHistory.getId() == null){
             throw new RecordsException("This pathological personal history can't be updated.");
         }
         Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExist = pathologicalPersonalHistoryRepository.findById(pathologicalPersonalHistory.getId());
