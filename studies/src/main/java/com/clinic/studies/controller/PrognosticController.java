@@ -19,7 +19,7 @@ import com.clinic.studies.service.PrognosticService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping(value = "/studies")
+@RequestMapping(value = "/prognostics")
 @Log4j2
 public class PrognosticController {
     @Autowired

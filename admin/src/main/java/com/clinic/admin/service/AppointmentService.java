@@ -18,7 +18,7 @@ public class AppointmentService {
 
     public Appointment createAppointment(Appointment appointment) throws Exception {
         Optional<Appointment> appointmentExists = appointmentRepository
-                .findByPatient_Id(appointment.getPatientId());
+                .findByPatientId(appointment.getPatientId());
         if(!appointmentExists.isPresent()) {
             log.info("Create Appointment: " + appointment.toString());
         }
@@ -30,7 +30,7 @@ public class AppointmentService {
             throw new RecordsException("This appointment cannot be updated");
         }
         Optional<Appointment> appointmentExists = appointmentRepository
-                .findByIdAndPatient_Id(appointment.getId(), appointment.getPatientId());
+                .findByIdAndPatientId(appointment.getId(), appointment.getPatientId());
         if(appointmentExists.isPresent()) {
             log.info("Update Family History: "+ appointment.toString());
             return appointmentRepository.save(appointment);

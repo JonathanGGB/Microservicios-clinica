@@ -18,7 +18,7 @@ public class MedicalHistoryService {
 
     public MedicalHistory createFamilyHistory(MedicalHistory medicalHistory) throws Exception {
         Optional<MedicalHistory> familyHistoryExists = familyRepository
-                .findByPatient_Id(medicalHistory.getPatientId());
+                .findByPatientId(medicalHistory.getPatientId());
         if(!familyHistoryExists.isPresent()) {
             log.info("Create MedicalHistory: " + medicalHistory.toString());
         }
@@ -30,7 +30,7 @@ public class MedicalHistoryService {
             throw new RecordsException("This family history cannot be updated");
         }
         Optional<MedicalHistory> familyHistoryExists = familyRepository
-                .findByIdAndPatient_Id(medicalHistory.getId(), medicalHistory.getPatientId());
+                .findByIdAndPatientId(medicalHistory.getId(), medicalHistory.getPatientId());
         if(familyHistoryExists.isPresent()) {
             log.info("Update Family History: "+ medicalHistory.toString());
             return familyRepository.save(medicalHistory);

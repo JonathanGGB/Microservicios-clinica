@@ -4,6 +4,8 @@ import com.clinic.records.entity.PathologicalPersonalHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.PathologicalPersonalHistoryRepository;
+import com.clinic.records.repository.PatientRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class PathologicalPersonalHistoryService {
     @Autowired
     private PathologicalPersonalHistoryRepository pathologicalPersonalHistoryRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     public List<PathologicalPersonalHistory> getAllPathologicalHistories() throws RecordsException {
         List<PathologicalPersonalHistory> pathologicalPersonalHistories = pathologicalPersonalHistoryRepository.findAll();
@@ -26,7 +30,7 @@ public class PathologicalPersonalHistoryService {
     }
 
     public PathologicalPersonalHistory createPathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
-        Patient patient = pathologicalPersonalHistory.getPatient();
+        Patient patient = patientRepository.getById(pathologicalPersonalHistory.getPatientId());
         Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExist = pathologicalPersonalHistoryRepository.findByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
         if(!pathologicalPersonalHistoryExist.isPresent()){
             log.info("Created Pathological Personal History: "+pathologicalPersonalHistory.toString());
@@ -36,7 +40,7 @@ public class PathologicalPersonalHistoryService {
     }
 
     public PathologicalPersonalHistory updatePathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
-        if (pathologicalPersonalHistory.getPatient() == null){
+        if (patientRepository.getById(pathologicalPersonalHistory.getPatientId()) == null){
             throw new RecordsException("This pathological personal history can't be updated.");
         }
         Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExist = pathologicalPersonalHistoryRepository.findById(pathologicalPersonalHistory.getId());

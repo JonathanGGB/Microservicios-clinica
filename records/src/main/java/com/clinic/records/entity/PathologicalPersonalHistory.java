@@ -23,7 +23,6 @@ public class PathologicalPersonalHistory {
     private String allergies;
     @Column(name = "join_aliments", length = 255)
     private String jointAliments;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private Patient patient;
+    @Column(name = "patient_id")
+    private Long patientId;
 }
