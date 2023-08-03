@@ -1,5 +1,6 @@
 package com.clinic.records.service;
 
+import com.clinic.records.dto.ObstGynecHistoryDto;
 import com.clinic.records.entity.ObstetricGynecologistHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
@@ -27,6 +28,29 @@ public class ObstetricGynecologistHistoryService {
             throw new RecordsException("No obstetric-gynecologist histories found.");
         }
         return obstetricGynecologistHistories;
+    }
+    
+    public ObstGynecHistoryDto getObstGynecHistoryDtoByPatientId(Long id) throws RecordsException {
+    	Optional<Patient> patientExists = patientRepository.findById(id);
+		if(!patientExists.isPresent()) {
+			throw new RecordsException("This patient does not exists");
+		}
+		Patient patient = patientExists.get();
+		ObstGynecHistoryDto historyDto = new ObstGynecHistoryDto();
+		Optional<ObstetricGynecologistHistory> historyExists = obstetricGynecologistHistoryRepository.findByPatientId(id);
+		if(!historyExists.isPresent()) {
+			throw new RecordsException("No ObstetricGynechologist History found for this patient");
+		}
+		ObstetricGynecologistHistory history = historyExists.get();
+		historyDto.setAbortions(history.getAbortions());
+		historyDto.setBasl(history.getBasl());
+		historyDto.setBirthNum(history.getBirthNum());
+		historyDto.setCesareans(history.getCesareans());
+		historyDto.setFullname(patient.getName()+" "+patient.getLastnames());
+		historyDto.setLpd(history.getLpd());
+		historyDto.setMenarche(history.getMenarche());
+		historyDto.setMensualCicle(history.getMensualCicle());
+		return historyDto;
     }
 
     public ObstetricGynecologistHistory createObstetricHistory(ObstetricGynecologistHistory obstetricGynecologistHistory) throws RecordsException {

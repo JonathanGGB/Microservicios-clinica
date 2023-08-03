@@ -27,7 +27,7 @@ public class ObstetricGynecologistHistory {
     private int birthNum;
     @Column(name="lpd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private  Timestamp lpd;
+    private Timestamp lpd;
     @Column(name = "abortions", nullable = false)
     private int abortions;
     @Column(name = "cesareans", nullable = false)
