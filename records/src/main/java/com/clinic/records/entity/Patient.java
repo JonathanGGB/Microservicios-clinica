@@ -35,6 +35,8 @@ public class Patient {
 	@Column(name = "birthday")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")
 	private Timestamp birthday;
+	@Column(name = "sex", nullable = false)
+	private boolean sex; //true female, false male
 	@Column(name = "address", length = 100, nullable = false)
 	private String address;
 	@Column(name = "cellphone_num", length = 15, nullable = false)
