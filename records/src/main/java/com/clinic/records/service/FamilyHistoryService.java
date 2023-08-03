@@ -1,5 +1,6 @@
 package com.clinic.records.service;
 
+import com.clinic.records.dto.FamilyHistoryDto;
 import com.clinic.records.entity.FamilyHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
@@ -27,6 +28,21 @@ public class FamilyHistoryService {
             throw new RecordsException("No family histories found.");
         }
         return familyHistories;
+    }
+    
+    public FamilyHistoryDto getFamilyHistoryDtoByPatientId(Long patientId) throws RecordsException {
+    	FamilyHistoryDto historyDto = new FamilyHistoryDto();
+    	Optional<FamilyHistory> familyHistoryExists = familyHistoryRepository.findByPatientId(patientId);
+    	if(!familyHistoryExists.isPresent()) {
+    		throw new RecordsException("No family history found for this patient");
+    	}
+    	FamilyHistory familyHistory = familyHistoryExists.get();
+    	historyDto.setAllergies(familyHistory.isAllergies());
+    	historyDto.setDiabetes(familyHistory.isDiabetes());
+    	historyDto.setHearthDeseases(familyHistory.isHeartDiseases());
+    	historyDto.setPsychiatrics(familyHistory.isPsychiatrics());
+    	historyDto.setOtherSyndromes(familyHistory.isOtherSyndromes());
+    	return historyDto;
     }
 
     public FamilyHistory createFamilyHistory(FamilyHistory familyHistory) throws RecordsException {

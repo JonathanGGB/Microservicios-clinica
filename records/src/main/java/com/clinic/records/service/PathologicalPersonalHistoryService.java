@@ -1,5 +1,6 @@
 package com.clinic.records.service;
 
+import com.clinic.records.dto.PathologicalPersonalHistoryDto;
 import com.clinic.records.entity.PathologicalPersonalHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
@@ -27,6 +28,22 @@ public class PathologicalPersonalHistoryService {
             throw new RecordsException("No Pathological Personal Histories found");
         }
         return pathologicalPersonalHistories;
+    }
+    
+    public PathologicalPersonalHistoryDto getPathologicalPersonalHistoryDtoByPatientId(Long patientId) throws RecordsException {
+    	PathologicalPersonalHistoryDto historyDto = new PathologicalPersonalHistoryDto();
+    	Optional<PathologicalPersonalHistory> historyExists = pathologicalPersonalHistoryRepository.findByPatientId(patientId);
+    	if(!historyExists.isPresent()) {
+    		throw new RecordsException("No pathological history found for this patient");
+    	}
+    	PathologicalPersonalHistory pathologicalPersonalHistory = historyExists.get();
+    	historyDto.setAddiction(pathologicalPersonalHistory.getAddictions());
+    	historyDto.setAllergies(pathologicalPersonalHistory.getAllergies());
+    	historyDto.setJoint_ailments(pathologicalPersonalHistory.getJointAliments());
+    	historyDto.setStd(pathologicalPersonalHistory.getStd());
+    	historyDto.setSurgeries(pathologicalPersonalHistory.getSurgeries());
+    	historyDto.setTrauma(pathologicalPersonalHistory.getTraumas());
+    	return historyDto;
     }
 
     public PathologicalPersonalHistory createPathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
