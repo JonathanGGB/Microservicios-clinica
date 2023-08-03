@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 6200
   servlet:
     context-path: /records
 spring:
