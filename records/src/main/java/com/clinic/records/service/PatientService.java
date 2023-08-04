@@ -1,7 +1,10 @@
 package com.clinic.records.service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
+import com.clinic.records.dto.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,9 +52,19 @@ public class PatientService {
 		return patients;
 	}
 	
-//	public PatientDto getPatientByNameAndLastNames() throws Exception {
-//		
-//	}
+	public PatientDto getPatientById(Long id) throws Exception {
+		PatientDto patientDto = new PatientDto();
+		Optional<Patient> patientExist = patientRepository.findById(id);
+		if(!patientExist.isPresent()){
+			throw new RecordsException("There is no patient with that id");
+		}
+		Patient patient = patientExist.get();
+		String patientFullName = patient.getName() + " " +patient.getLastnames();
+		patientDto.setFullName(patientFullName);
+		patientDto.setEmail(patient.getEmail());
+		patientDto.setAddress(patient.getAddress());
+		return patientDto;
+	}
 	
 	public void deletePatient(Long id) throws Exception{
 		Optional<Patient> patientExists = patientRepository.findById(id);
