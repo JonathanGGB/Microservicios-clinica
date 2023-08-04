@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @Log4j2
 public class MedicalHistoryController {
     @Autowired
-    private MedicalHistoryService familyService;
+    private MedicalHistoryService medicalHistoryService;
 
     @GetMapping
     public ResponseEntity<?> getAllMedicalHistories() {
         try {
-            return ResponseEntity.ok().body(familyService.getAllMedicalHistories());
+            return ResponseEntity.ok().body(medicalHistoryService.getAllMedicalHistories());
         } catch (StudiesException ex) {
             log.warn("No data");
             log.error(ex);
@@ -31,10 +31,10 @@ public class MedicalHistoryController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createmedicalHistory(@RequestBody MedicalHistory medicalHistory) {
+    public ResponseEntity<?> createMedicalHistory(@RequestBody MedicalHistory medicalHistory) {
         try {
-            log.info("Family History to create: "+ medicalHistory.toString());
-            return new ResponseEntity<>(familyService.createmedicalHistory(medicalHistory), HttpStatus.CREATED);
+            log.info("Medical History to create: "+ medicalHistory.toString());
+            return new ResponseEntity<>(medicalHistoryService.createmedicalHistory(medicalHistory), HttpStatus.CREATED);
         } catch (StudiesException ex) {
             log.warn("No data");
             log.error(ex);
@@ -47,7 +47,7 @@ public class MedicalHistoryController {
     @PutMapping
     public ResponseEntity<?> updatemedicalHistory(@RequestBody MedicalHistory medicalHistory) {
         try {
-            return new ResponseEntity<>(familyService.updatemedicalHistory(medicalHistory), HttpStatus.OK);
+            return new ResponseEntity<>(medicalHistoryService.updatemedicalHistory(medicalHistory), HttpStatus.OK);
         }catch (StudiesException ex) {
             log.warn("No data");
             log.error(ex);
@@ -60,8 +60,8 @@ public class MedicalHistoryController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteMedicalHistory(@PathVariable (value = "id") Long id) {
         try {
-            familyService.deleteMedicalHistory(id);
-            return new ResponseEntity<>("Family History's record deleted", HttpStatus.OK);
+            medicalHistoryService.deleteMedicalHistory(id);
+            return new ResponseEntity<>("Medical History's record deleted", HttpStatus.OK);
         } catch (StudiesException ex) {
             log.warn("No data");
             log.error(ex);
