@@ -1,8 +1,13 @@
 package com.clinic.studies.service;
 
+import com.clinic.studies.dto.DiagnosisDto;
+import com.clinic.studies.dto.MedicalHistoryDto;
 import com.clinic.studies.entity.Diagnosis;
+import com.clinic.studies.entity.MedicalHistory;
 import com.clinic.studies.error.RegistriesException;
+import com.clinic.studies.error.StudiesException;
 import com.clinic.studies.repository.DiagnosisRepository;
+import jdk.jshell.Diag;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +41,26 @@ public class DiagnosisService {
             throw new RegistriesException("No diagnoses found");
         }
         return diagnoses;
+    }
+
+    public Diagnosis getDiagnosisById(Long id) throws Exception {
+        Optional<Diagnosis> diagnosisExists = diagnosisRepository.findById(id);
+        if(!diagnosisExists.isPresent()) {
+            throw new RegistriesException("No diagnoses found");
+        }
+        return diagnosisExists.get();
+    }
+
+    public DiagnosisDto getDiagnosisDto(Long id) throws Exception{
+        Optional<Diagnosis> diagnosisExists = diagnosisRepository.findById(id);
+        if (!diagnosisExists.isPresent()) {
+            throw new StudiesException(("No diagnosis found."));
+        }
+        Diagnosis diagnosis = diagnosisExists.get();
+        DiagnosisDto diagnosisDto = new DiagnosisDto();
+        diagnosisDto.setDiagnosis(diagnosis.getDiagnosis());
+        diagnosisDto.setDiagnosisDate(diagnosis.getDiagnosisDate());
+        return diagnosisDto;
     }
 
     public void deleteDiagnosis(Long id) {
