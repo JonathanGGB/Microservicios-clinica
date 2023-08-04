@@ -1,7 +1,10 @@
 package com.clinic.records.service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
+import com.clinic.records.dto.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,26 +53,19 @@ public class PatientService {
 		return patients;
 	}
 	
-	public PatientDto getPatientByEmail(String email) throws Exception {
-		Optional<Patient> patientExists = patientRepository.findByEmail(email);
-		if(!patientExists.isPresent()) {
-			throw new RecordsException("No patient found with that email");
-		}
-		Patient patient = patientExists.get();
-		PatientDto patientDto = new PatientDto();
-		patientDto.setFullName(patient.getName()+" "+patient.getLastnames());
-		patientDto.setAge(patient.getAge());
-		patientDto.setAddress(patient.getAddress());
-		patientDto.setCellphoneNum(patient.getCellphoneNum());
-		patientDto.setEmail(patient.getEmail());
-		patientDto.setSex(patient.isSex());
-		patientDto.setMaritalStatus(patient.getMaritalStatus());
-		patientDto.setSchooling(patient.getSchooling());
-		patientDto.setOccupation(patient.getOccupation());
-		
-		return patientDto;
-		
-	}
+  public PatientDto getPatientById(Long id) throws Exception {
+      PatientDto patientDto = new PatientDto();
+      Optional<Patient> patientExist = patientRepository.findById(id);
+      if(!patientExist.isPresent()){
+        throw new RecordsException("There is no patient with that id");
+      }
+      Patient patient = patientExist.get();
+      String patientFullName = patient.getName() + " " +patient.getLastnames();
+      patientDto.setFullName(patientFullName);
+      patientDto.setEmail(patient.getEmail());
+      patientDto.setAddress(patient.getAddress());
+      return patientDto;
+    }
 	
 	public void deletePatient(Long id) throws Exception{
 		Optional<Patient> patientExists = patientRepository.findById(id);
