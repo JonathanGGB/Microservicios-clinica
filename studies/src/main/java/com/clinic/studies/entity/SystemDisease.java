@@ -14,7 +14,7 @@ public class SystemDisease {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "disease_name", length = 30, nullable = false)
+    @Column(name = "disease_name", length = 100, nullable = false)
     private String diseaseName;
 
     @ManyToOne
