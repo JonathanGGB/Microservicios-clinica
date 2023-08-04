@@ -20,7 +20,7 @@ public class MedicalHistory {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "patient_id")
+    @Column(name = "patient_id", nullable = false)
     private Long patientId;
     @Column(name = "date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")

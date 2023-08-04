@@ -19,6 +19,8 @@ public class PathologicalPersonalHistory {
     private String addictions;
     @Column(name = "std", length = 255)
     private  String std;
+    @Column(name = "traumas", length = 255)
+    private String traumas;
     @Column(name = "allergies", length = 255)
     private String allergies;
     @Column(name = "join_aliments", length = 255)
