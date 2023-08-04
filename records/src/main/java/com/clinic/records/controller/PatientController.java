@@ -53,6 +53,18 @@ public class PatientController {
 //			throw new RuntimeException(e);
 //		}
 //	}
+	@GetMapping("/{id}")
+	public ResponseEntity<?> findPatientById(@PathVariable("id")Long id){
+		try{
+			return new ResponseEntity<>(patientService.getPatientById(id), HttpStatus.OK);
+		} catch (RecordsException ex){
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	@PostMapping
 	public ResponseEntity<?> createPatient(@RequestBody Patient patient) {
