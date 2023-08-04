@@ -39,6 +39,18 @@ public class PrognosticController {
         }
     }
 
+    @GetMapping("/{patient-id}")
+    public ResponseEntity<?> getPrognosticByPatientId(@PathVariable("patient-id") Long patientId){
+        try{
+            return new ResponseEntity<>(prognosticService.getPrognosticDtoByPatientId(patientId), HttpStatus.OK);
+        } catch (StudiesException ex){
+            log.warn("No data");
+            log.error(ex);
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @PostMapping
     public ResponseEntity<?> createPrognostic(@RequestBody Prognostic prognostic) throws StudiesException {
         try {
