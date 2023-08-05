@@ -2,11 +2,8 @@ package com.clinic.studies.service;
 
 import java.util.List;
 
-import com.clinic.studies.client.IPatientClient;
 import com.clinic.studies.dto.CurrentSufferingDto;
-import com.clinic.studies.dto.client.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.clinic.studies.entity.CurrentSuffering;
@@ -22,8 +19,6 @@ import lombok.extern.log4j.Log4j2;
 public class CurrentSufferingService {
 	@Autowired
 	CurrentSufferingRepository currentSufferingRepository;
-	@Autowired(required = true)
-	private IPatientClient patientClient;
 
 	
 	public CurrentSuffering createCurrentSuffering(CurrentSuffering currentSuffering) {
@@ -57,10 +52,7 @@ public class CurrentSufferingService {
 		if(!currentSufferingExist.isPresent()){
 			throw new StudiesException("There is no current sufferings for this patient.");
 		}
-		ResponseEntity<PatientDto> response = patientClient.findPatientById(patientId);
-		PatientDto responseDto = response.getBody();
 		CurrentSuffering currentSuffering = currentSufferingExist.get();
-		currentSufferingDto.setPatientName(responseDto.getFullName());
 		currentSufferingDto.setDate(currentSuffering.getDate());
 		currentSufferingDto.setDescription(currentSuffering.getDescription());
 		currentSufferingDto.setEvolution(currentSuffering.getEvolution());

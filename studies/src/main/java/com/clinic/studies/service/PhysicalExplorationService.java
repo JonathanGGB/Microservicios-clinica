@@ -2,11 +2,8 @@ package com.clinic.studies.service;
 
 import java.util.List;
 
-import com.clinic.studies.client.IPatientClient;
 import com.clinic.studies.dto.PhysicalExplorationDto;
-import com.clinic.studies.dto.client.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.clinic.studies.entity.PhysicalExploration;
@@ -22,8 +19,7 @@ import lombok.extern.log4j.Log4j2;
 public class PhysicalExplorationService {
 	@Autowired
 	PhysicalExplorationRepository physicalExplorationRepository;
-	@Autowired(required = true)
-	IPatientClient patientClient;
+
 	
 	public PhysicalExploration createPhysicalExploration(PhysicalExploration physicalExploration) {
 		log.info("Create PhysicalExploration record: " + physicalExploration.toString());
@@ -56,10 +52,7 @@ public class PhysicalExplorationService {
 		if(!physicalExplorationExist.isPresent()){
 			throw new StudiesException("There is no Physical explotaion for this patient.");
 		}
-		ResponseEntity<PatientDto> response = patientClient.findPatientById(patientId);
-		PatientDto responseDto = response.getBody();
 		PhysicalExploration physicalExploration = physicalExplorationExist.get();
-		physicalExplorationDto.setPatientName(responseDto.getFullName());
 		physicalExplorationDto.setExplorationDescription(physicalExploration.getExplorationDescription());
 		physicalExplorationDto.setExplorationDate(physicalExploration.getExplorationDate());
 

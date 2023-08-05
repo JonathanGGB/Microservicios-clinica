@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 public class PrognosticDto {
-    private String patientName;
     private String patientDescription;
     private Timestamp prognosticDate;
 }
