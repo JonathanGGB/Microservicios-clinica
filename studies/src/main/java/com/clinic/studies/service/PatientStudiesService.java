@@ -1,5 +1,6 @@
 package com.clinic.studies.service;
 
+
 import com.clinic.studies.client.IPatientClient;
 import com.clinic.studies.dto.CurrentSufferingDto;
 import com.clinic.studies.dto.PatientStudiesDto;
@@ -32,14 +33,10 @@ public class PatientStudiesService {
     PhysicalExplorationService physicalExplorationService;
     @Autowired
     PhysicalExplorationRepository physicalExplorationRepository;
-    @Autowired(required = true)
-    IPatientClient patientClient;
+
+
 
     public PatientStudiesDto getPatientStudiesByPacientId(Long id) throws StudiesException {
-        ResponseEntity<PatientDto> response = patientClient.findPatientById(id);
-        if(response.getStatusCode() != HttpStatus.OK){
-            throw new StudiesException("No patient found");
-        }
         PatientStudiesDto patientStudiesDto = new PatientStudiesDto();
         CurrentSufferingDto currentSufferingDto = currentSufferingService.getCurrentSufferingByPatientId(id);
         patientStudiesDto.setCurrentSufferingDto(currentSufferingDto);

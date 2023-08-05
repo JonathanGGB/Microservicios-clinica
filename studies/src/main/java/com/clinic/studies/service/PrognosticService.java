@@ -2,7 +2,6 @@ package com.clinic.studies.service;
 
 import java.util.List;
 
-import com.clinic.studies.client.IPatientClient;
 import com.clinic.studies.dto.PrognosticDto;
 import com.clinic.studies.dto.client.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import lombok.extern.log4j.Log4j2;
 public class PrognosticService {
     @Autowired
     PrognosticRepository prognosticRepository;
-    @Autowired(required = true)
-    IPatientClient patientClient;
 
     public Prognostic createPrognostic(Prognostic prognostic) {
         log.info("Create Prognostic record: " + prognostic.toString());
@@ -53,10 +50,7 @@ public class PrognosticService {
         if(!prognosticExist.isPresent()){
             throw new StudiesException("No Prognostic is found for this patient.");
         }
-        ResponseEntity<PatientDto> response = patientClient.findPatientById(patientId);
-        PatientDto responseDto = response.getBody();
         Prognostic prognostic = prognosticExist.get();
-        prognosticDto.setPatientName(responseDto.getFullName());
         prognosticDto.setPatientDescription(prognostic.getPatientDescription());
         prognosticDto.setPrognosticDate(prognostic.getPrognosticDate());
 

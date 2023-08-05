@@ -1,5 +1,6 @@
 package com.clinic.studies.dto;
 
+import com.clinic.studies.dto.client.PatientDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
