@@ -1,16 +1,11 @@
-package com.clinic.records.entity;
+package com.clinic.studies.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Timestamp;
 
+import java.sql.Timestamp;
 @Entity
 @Table(name = "medical_history")
 @Data
@@ -20,7 +15,7 @@ public class MedicalHistory {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "patient_id")
+    @Column(name = "patient_id", nullable = false)
     private Long patientId;
     @Column(name = "date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd")

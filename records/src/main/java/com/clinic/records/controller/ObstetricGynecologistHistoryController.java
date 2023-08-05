@@ -3,6 +3,8 @@ package com.clinic.records.controller;
 import com.clinic.records.entity.ObstetricGynecologistHistory;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.service.ObstetricGynecologistHistoryService;
+import com.fasterxml.jackson.core.sym.Name;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,20 @@ public class ObstetricGynecologistHistoryController {
             log.error(e);
             throw new RuntimeException(e);
         }
+    }
+   
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> getObstetricGynecologistHistoryDtoByPatientId(@PathVariable (name = "id") Long id) {
+    	try {
+			return ResponseEntity.ok().body(obstetricGynecologistHistoryService.getObstGynecHistoryDtoByPatientId(id));
+		} catch (RecordsException ex) {
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>("No data found", HttpStatus.NO_CONTENT);
+		}catch (Exception e) {
+			log.error(e);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
+		}
     }
 
     @PostMapping

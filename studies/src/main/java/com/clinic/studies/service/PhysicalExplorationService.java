@@ -2,6 +2,7 @@ package com.clinic.studies.service;
 
 import java.util.List;
 
+import com.clinic.studies.dto.PhysicalExplorationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import lombok.extern.log4j.Log4j2;
 public class PhysicalExplorationService {
 	@Autowired
 	PhysicalExplorationRepository physicalExplorationRepository;
+
 	
 	public PhysicalExploration createPhysicalExploration(PhysicalExploration physicalExploration) {
 		log.info("Create PhysicalExploration record: " + physicalExploration.toString());
@@ -42,6 +44,19 @@ public class PhysicalExplorationService {
 			throw new StudiesException("No PhysicalExploration records found");
 		}
 		return physicalExplorationRecords;
+	}
+
+	public PhysicalExplorationDto getPhysicalExplorationByPatientId(Long patientId) throws StudiesException {
+		PhysicalExplorationDto physicalExplorationDto = new PhysicalExplorationDto();
+		Optional<PhysicalExploration> physicalExplorationExist = physicalExplorationRepository.findByPatientId(patientId);
+		if(!physicalExplorationExist.isPresent()){
+			throw new StudiesException("There is no Physical explotaion for this patient.");
+		}
+		PhysicalExploration physicalExploration = physicalExplorationExist.get();
+		physicalExplorationDto.setExplorationDescription(physicalExploration.getExplorationDescription());
+		physicalExplorationDto.setExplorationDate(physicalExploration.getExplorationDate());
+
+		return physicalExplorationDto;
 	}
 	
 	public void deletePhysicalExploration(Long id) throws Exception{

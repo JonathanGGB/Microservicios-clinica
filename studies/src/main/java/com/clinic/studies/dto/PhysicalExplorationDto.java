@@ -7,7 +7,8 @@ import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
-public class ReassessmentDto {
-    private String reassessment;
-    private Timestamp reassessmentDate;
+public class PhysicalExplorationDto {
+    private String explorationDescription;
+    private Timestamp explorationDate;
+
 }

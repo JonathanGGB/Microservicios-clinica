@@ -1,9 +1,12 @@
 package com.clinic.records.service;
 
+import com.clinic.records.dto.ObstGynecHistoryDto;
 import com.clinic.records.entity.ObstetricGynecologistHistory;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.ObstetricGynecologistHistoryRepository;
+import com.clinic.records.repository.PatientRepository;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.Optional;
 public class ObstetricGynecologistHistoryService {
     @Autowired
     private ObstetricGynecologistHistoryRepository obstetricGynecologistHistoryRepository;
+    @Autowired
+    private PatientRepository patientRepository;
 
     public List<ObstetricGynecologistHistory> getAllObstetricHistory() throws RecordsException {
         List<ObstetricGynecologistHistory> obstetricGynecologistHistories = obstetricGynecologistHistoryRepository.findAll();
@@ -24,11 +29,35 @@ public class ObstetricGynecologistHistoryService {
         }
         return obstetricGynecologistHistories;
     }
+    
+    public ObstGynecHistoryDto getObstGynecHistoryDtoByPatientId(Long id) throws RecordsException {
+    	Optional<Patient> patientExists = patientRepository.findById(id);
+		if(!patientExists.isPresent()) {
+			throw new RecordsException("This patient does not exists");
+		}
+		Patient patient = patientExists.get();
+		ObstGynecHistoryDto historyDto = new ObstGynecHistoryDto();
+		Optional<ObstetricGynecologistHistory> historyExists = obstetricGynecologistHistoryRepository.findByPatientId(id);
+		if(!historyExists.isPresent()) {
+			throw new RecordsException("No ObstetricGynechologist History found for this patient");
+		}
+		ObstetricGynecologistHistory history = historyExists.get();
+		historyDto.setAbortions(history.getAbortions());
+		historyDto.setBasl(history.getBasl());
+		historyDto.setBirthNum(history.getBirthNum());
+		historyDto.setCesareans(history.getCesareans());
+		historyDto.setFullname(patient.getName()+" "+patient.getLastnames());
+		historyDto.setLpd(history.getLpd());
+		historyDto.setMenarche(history.getMenarche());
+		historyDto.setMensualCicle(history.getMensualCicle());
+		return historyDto;
+    }
 
     public ObstetricGynecologistHistory createObstetricHistory(ObstetricGynecologistHistory obstetricGynecologistHistory) throws RecordsException {
-        Patient patient = obstetricGynecologistHistory.getPatient();
-        Optional<ObstetricGynecologistHistory> obstetricGynecologistHistoryExist = obstetricGynecologistHistoryRepository.findObstetricGynecologistHistoryByPatientNameAndPatientLastnames(patient.getName(), patient.getLastnames());
-        if((!obstetricGynecologistHistoryExist.isPresent()) && (patient.isSex())){
+        Optional<Patient> patientExists = patientRepository.findById(obstetricGynecologistHistory.getPatientId());  
+        Optional<ObstetricGynecologistHistory> obstetricGynecologistHistoryExist = obstetricGynecologistHistoryRepository
+        		.findByPatientId(obstetricGynecologistHistory.getPatientId());
+        if((patientExists.isPresent())&&(!obstetricGynecologistHistoryExist.isPresent()) && (patientExists.get().isSex())){
             log.info("Created obstetric-gynecologist history: "+ obstetricGynecologistHistory.toString());
             return obstetricGynecologistHistoryRepository.save(obstetricGynecologistHistory);
         }

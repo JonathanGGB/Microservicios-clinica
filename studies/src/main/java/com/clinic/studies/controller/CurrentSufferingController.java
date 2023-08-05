@@ -38,7 +38,21 @@ public class CurrentSufferingController {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
+	@GetMapping("/{patient-id}")
+	public ResponseEntity<?> findCurrentSufferingByPacientId(@PathVariable("patient-id")Long patientId){
+		try{
+			return new ResponseEntity<>(currentSufferingService.getCurrentSufferingByPatientId(patientId), HttpStatus.OK);
+		} catch (StudiesException ex){
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>("No data found", HttpStatus.NOT_FOUND);
+		} catch (Exception e){
+			log.error(e);
+			throw new RuntimeException(e);
+		}
+	}
+
 	@PostMapping
 	public ResponseEntity<?> createCurrentSuffering(@RequestBody CurrentSuffering currentSuffering) throws StudiesException {
 		try {

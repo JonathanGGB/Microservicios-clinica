@@ -1,6 +1,8 @@
 package com.clinic.studies.service;
 
 import java.util.List;
+
+import com.clinic.studies.dto.PrognosticDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.clinic.studies.entity.Prognostic;
@@ -40,9 +42,18 @@ public class PrognosticService {
         return prognosticRecords;
     }
 
-//	public List<Prognostic> getPatientActualPrognostic(Long patientId, String state){
-//
-//	}
+    public PrognosticDto getPrognosticDtoByPatientId(Long patientId) throws StudiesException {
+        PrognosticDto prognosticDto = new PrognosticDto();
+        Optional<Prognostic> prognosticExist = prognosticRepository.findByPatientId(patientId);
+        if(!prognosticExist.isPresent()){
+            throw new StudiesException("No Prognostic is found for this patient.");
+        }
+        Prognostic prognostic = prognosticExist.get();
+        prognosticDto.setPatientDescription(prognostic.getPatientDescription());
+        prognosticDto.setPrognosticDate(prognostic.getPrognosticDate());
+
+        return prognosticDto;
+    }
 
     public void deletePrognostic(Long id) throws Exception{
         Optional<Prognostic> prognosticExists = prognosticRepository.findById(id);

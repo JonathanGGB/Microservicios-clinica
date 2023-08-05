@@ -10,5 +10,6 @@ import com.clinic.studies.entity.CurrentSuffering;
 public interface CurrentSufferingRepository extends JpaRepository<CurrentSuffering, Long>{
 	
 	Optional<CurrentSuffering> findByPatientIdAndState(Long patientId, String state);
+	Optional<CurrentSuffering> findByPatientId(Long patientId);
 
 }

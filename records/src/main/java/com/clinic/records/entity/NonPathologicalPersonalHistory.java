@@ -31,9 +31,8 @@ public class NonPathologicalPersonalHistory {
     private String feeding;
     @Column(name = "civil_status", length = 255)
     private String civilStatus;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private Patient patient;
+    @Column(name = "patient_id", nullable = false)
+    private Long patientId;
 
 
 

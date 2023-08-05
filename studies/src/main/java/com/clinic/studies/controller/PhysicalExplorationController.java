@@ -39,6 +39,19 @@ public class PhysicalExplorationController {
 			throw new RuntimeException(e);
 		}
 	}
+
+	@GetMapping("/{patient-id}")
+	public ResponseEntity<?> getPhysicalExplorationByPatientId(@PathVariable ("patient-id")Long patientId){
+		try{
+			return new ResponseEntity<>(physicalExplorationService.getPhysicalExplorationByPatientId(patientId), HttpStatus.OK);
+		} catch (StudiesException ex) {
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 	
 	@PostMapping
 	public ResponseEntity<?> createPhysicalExploration(@RequestBody PhysicalExploration physicalExploration) throws StudiesException {
