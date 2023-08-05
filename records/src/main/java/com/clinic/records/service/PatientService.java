@@ -66,6 +66,27 @@ public class PatientService {
       patientDto.setAddress(patient.getAddress());
       return patientDto;
     }
+
+	public PatientDto getPatientByEmail(String email) throws Exception {
+		Optional<Patient> patientExists = patientRepository.findByEmail(email);
+		if(!patientExists.isPresent()) {
+			throw new RecordsException("No patient found with that email");
+		}
+		Patient patient = patientExists.get();
+		PatientDto patientDto = new PatientDto();
+		patientDto.setFullName(patient.getName()+" "+patient.getLastnames());
+		patientDto.setAge(patient.getAge());
+		patientDto.setAddress(patient.getAddress());
+		patientDto.setCellphoneNum(patient.getCellphoneNum());
+		patientDto.setEmail(patient.getEmail());
+		patientDto.setSex(patient.isSex());
+		patientDto.setMaritalStatus(patient.getMaritalStatus());
+		patientDto.setSchooling(patient.getSchooling());
+		patientDto.setOccupation(patient.getOccupation());
+
+		return patientDto;
+
+	}
 	
 	public void deletePatient(Long id) throws Exception{
 		Optional<Patient> patientExists = patientRepository.findById(id);
