@@ -3,9 +3,7 @@ package com.clinic.studies.service;
 import java.util.List;
 
 import com.clinic.studies.dto.PrognosticDto;
-import com.clinic.studies.dto.client.PatientDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.clinic.studies.entity.Prognostic;
 import com.clinic.studies.error.StudiesException;

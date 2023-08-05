@@ -2,8 +2,6 @@ package com.clinic.studies.service;
 
 import java.util.List;
 
-
-import com.clinic.studies.client.IPatientClient;
 import com.clinic.studies.dto.CurrentSufferingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
