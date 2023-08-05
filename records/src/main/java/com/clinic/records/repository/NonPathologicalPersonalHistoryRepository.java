@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface NonPathologicalPersonalHistoryRepository extends JpaRepository<NonPathologicalPersonalHistory, Long> {
-    Optional<NonPathologicalPersonalHistory> findByPatientNameAndPatientLastnames(String name, String lastNames);
+    Optional<NonPathologicalPersonalHistory> findByPatientId(Long patientId);
 }
