@@ -40,6 +40,20 @@ public class PerinatalHistoryController {
 		}
 	}
 	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> getPerinatalHistoryByPatientId(@PathVariable (name = "id") Long id) {
+		try {
+			return ResponseEntity.ok().body(perinatalHistoryService.getPerinatalHistoryDtoById(id));
+		} catch (RecordsException ex) {
+			log.warn("No data");
+			log.error(ex);
+			return new ResponseEntity<>("No data found", HttpStatus.NO_CONTENT);
+		}catch (Exception e) {
+			log.error(e);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NO_CONTENT);
+		}
+	}
+	
 	@PostMapping
 	public ResponseEntity<?> createPatient(@RequestBody PerinatalHistory perinatalHistory) {
 		try {
