@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ObstetricGynecologistHistoryRepository extends JpaRepository<ObstetricGynecologistHistory, Long> {
-    Optional<ObstetricGynecologistHistory> findObstetricGynecologistHistoryByPatientNameAndPatientLastnames(String name, String lastNames);
+    Optional<ObstetricGynecologistHistory> findObstetricGynecologistHistoryByPatientId(Long patientId);
 }
