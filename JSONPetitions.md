@@ -26,7 +26,7 @@
 
 ```JSON
 {
-  "patientId": 123,
+  "patientId": 1,
   "date": "2023-08-06",
   "status": "Active",
   "patientType": "Regular",
@@ -41,7 +41,7 @@
 
 ```JSON
 {
-  "patientId": 123,
+  "patientId": 1,
   "filePath": "/path/to/file.txt",
   "fileType": "text/plain"
 }
