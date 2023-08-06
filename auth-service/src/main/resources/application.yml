@@ -39,3 +39,5 @@ admin-paths:
        method: "PUT"
      - uri: "records/patient/{id}"
        method: "DELETE"
+     - uri: "admin/general-patient-data/{patientId}/{medicalHistoryId}/{email}"
+       method: "GET"

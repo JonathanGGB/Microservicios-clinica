@@ -46,6 +46,7 @@ spring:
           args:
             name: CortoCircuito
             fallbackUri: forward:/error
+            
 server:
   port: 6002
   servlet:
