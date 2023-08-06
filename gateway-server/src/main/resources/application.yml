@@ -42,7 +42,6 @@ spring:
         predicates:
         - Path=/auth/**
         filters:
-        - AuthFilter
         - name: CircuitBreaker
           args:
             name: CortoCircuito

@@ -1,5 +1,7 @@
-package com.clinic.securityservice.security;
+package edu.uady.authservice.security;
 
+import edu.uady.authservice.dto.RequestDto;
+import edu.uady.authservice.entity.UserAuth;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
@@ -8,16 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.clinic.securityservice.dto.RequestDto;
-import com.clinic.securityservice.entity.UserAuth;
-
 import javax.annotation.PostConstruct;
 import java.util.*;
 
 @Component
 @Log4j2
 public class JwtProvider {
-	@Value("${security.keysecret}")
+    @Value("${security.keysecret}")
     private String secret ;
 
     @Autowired
@@ -44,7 +43,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validate(String token, RequestDto requestDto) {
+    public boolean validete(String token, RequestDto requestDto) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
         } catch (Exception ex) {
@@ -61,7 +60,7 @@ public class JwtProvider {
             return Jwts.parser().setSigningKey(secret).parseClaimsJws(token)
                     .getBody().getSubject();
         }catch (Exception ex){
-            return "Invalid token";
+            return "token invalido";
         }
     }
 
@@ -69,5 +68,6 @@ public class JwtProvider {
         return Jwts.parser().setSigningKey(secret)
                 .parseClaimsJws(token).getBody().get("role").equals("admin");
     }
+
 
 }
