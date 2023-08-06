@@ -1,4 +1,5 @@
-# Peticiones para cada entidad
+# Peticiones para crear cada entidad
+(En el caso de querer actualizar un registro, solo es necesario añadir la clave "id" y el valor entero correspondiente además de cambiar el tipo de petición. Para el get y el delete, se deben usar los métodos correspondientes. El caso del delete, siempre es con el id.) 
 
 ## Patient
 
