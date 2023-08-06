@@ -218,7 +218,7 @@ Para obtener todos los registros relacionados a un paciente y un historial médi
                 "diseaseName": "Pares craneales"
             },
             {
-                "diseaseName": "Pares craneales"
+                "diseaseName": "Dermatomas"
             }
         ]
     },
