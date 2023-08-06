@@ -31,14 +31,12 @@ public class AuthFilter  extends AbstractGatewayFilterFactory<AuthFilter.Config>
 
     @Override
     public GatewayFilter apply(Config config) {
-        log.info("Validating url");
         return (((exchange, chain) -> {
             log.info("Validating url "+exchange.getRequest().getHeaders().toString());
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 log.info("Unathorized user");
                 return onError(exchange, HttpStatus.UNAUTHORIZED);
             }
-            log.info("Validating url");
             String tokenHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
             String[] chunks = tokenHeader.split(" ");
             if (chunks.length != 2 || !chunks[0].equals("Bearer")) {
@@ -47,7 +45,7 @@ public class AuthFilter  extends AbstractGatewayFilterFactory<AuthFilter.Config>
             RequestDto dto = new RequestDto(exchange.getRequest().getPath().toString(), exchange.getRequest().getMethod().toString());
             return webClient.build()
                     .post()
-                    .uri("http://security-service/auth/validate?token=" + chunks[1])
+                    .uri("http://auth-service/auth/validate?token=" + chunks[1])
                     .bodyValue(dto)
                     .retrieve().bodyToMono(TokenDto.class)
                     .map(t -> {

@@ -38,7 +38,7 @@ spring:
             name: CortoCircuito
             fallbackUri: forward:/error
       - id: auth-service
-        uri: lb://SECURITY-SERVICE
+        uri: lb://AUTH-SERVICE
         predicates:
         - Path=/auth/**
         filters:
@@ -60,7 +60,7 @@ eureka:
    
 uri:
   auth:
-    validate: http://localhost:6003/SECURITY-SERVICE/auth/validate
+    validate: http://localhost:6003/AUTH-SERVICE/auth/validate
 
 
            
