@@ -1,0 +1,43 @@
+server:
+  port: 6003
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth-db
+    username: root
+    password: 123456789
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+
+security:
+  keysecret: Nuk20P24Lplf381q 
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      default-zone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+admin-paths:
+   paths:
+     - uri: "/admin/"
+       method: "GET"
+     - uri: "/records/patient"
+       method: "GET"
+     - uri: "/records/patient/{email}"
+       method: "GET"
+     - uri: "/records/patient"
+       method: "POST"
+     - uri: "/records/patient/{id}"
+       method: "PUT"
+     - uri: "records/patient/{id}"
+       method: "DELETE"
+     - uri: "admin/general-patient-data/{patientId}/{medicalHistoryId}/{email}"
+       method: "GET"

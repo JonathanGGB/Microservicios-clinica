@@ -47,10 +47,10 @@ public class PathologicalPersonalHistoryService {
     }
 
     public PathologicalPersonalHistory createPathologicalHistory(PathologicalPersonalHistory pathologicalPersonalHistory) throws RecordsException {
+
         Optional<Patient> patientExists = patientRepository.findById(pathologicalPersonalHistory.getPatientId());
         Optional<PathologicalPersonalHistory> pathologicalPersonalHistoryExists = pathologicalPersonalHistoryRepository
         		.findByPatientId(pathologicalPersonalHistory.getPatientId());
-        
         if((patientExists.isPresent()) && (!pathologicalPersonalHistoryExists.isPresent()) ){
             log.info("Created Pathological Personal History: "+pathologicalPersonalHistory.toString());
             return pathologicalPersonalHistoryRepository.save(pathologicalPersonalHistory);
