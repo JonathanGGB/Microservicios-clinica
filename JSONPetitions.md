@@ -35,6 +35,18 @@
 }
 ```
 
+## Study
+
+**POST**
+
+```JSON
+{
+  "patientId": 123,
+  "filePath": "/path/to/file.txt",
+  "fileType": "text/plain"
+}
+```
+
 ## Family History
 
 **POST**
