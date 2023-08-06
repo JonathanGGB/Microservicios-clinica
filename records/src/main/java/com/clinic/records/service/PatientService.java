@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import com.clinic.records.dto.PatientDto;
 import com.clinic.records.entity.Patient;
 import com.clinic.records.error.RecordsException;
 import com.clinic.records.repository.PatientRepository;
@@ -21,12 +22,12 @@ public class PatientService {
 	private PatientRepository patientRepository;
 	
 	public Patient createPatient(Patient patient) throws Exception {
-		Optional<Patient> patientExists = patientRepository.findByNameAndLastnames(patient.getName(), patient.getLastnames());
+		Optional<Patient> patientExists = patientRepository.findByEmail(patient.getEmail());
 		if(!patientExists.isPresent()) {
 			log.info("Create Patient: " + patient.toString());
 			return patientRepository.save(patient);
 		}
-		throw new RecordsException("There's an already existing patient with that name");
+		throw new RecordsException("There's an already existing patient registred with that email");
 	}
 	
 	public Patient updatePatient(Patient patient)  throws Exception {
@@ -49,9 +50,26 @@ public class PatientService {
 		return patients;
 	}
 	
-//	public PatientDto getPatientByNameAndLastNames() throws Exception {
-//		
-//	}
+	public PatientDto getPatientByEmail(String email) throws Exception {
+		Optional<Patient> patientExists = patientRepository.findByEmail(email);
+		if(!patientExists.isPresent()) {
+			throw new RecordsException("No patient found with that email");
+		}
+		Patient patient = patientExists.get();
+		PatientDto patientDto = new PatientDto();
+		patientDto.setFullName(patient.getName()+" "+patient.getLastnames());
+		patientDto.setAge(patient.getAge());
+		patientDto.setAddress(patient.getAddress());
+		patientDto.setCellphoneNum(patient.getCellphoneNum());
+		patientDto.setEmail(patient.getEmail());
+		patientDto.setSex(patient.isSex());
+		patientDto.setMaritalStatus(patient.getMaritalStatus());
+		patientDto.setSchooling(patient.getSchooling());
+		patientDto.setOccupation(patient.getOccupation());
+		
+		return patientDto;
+		
+	}
 	
 	public void deletePatient(Long id) throws Exception{
 		Optional<Patient> patientExists = patientRepository.findById(id);

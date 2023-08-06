@@ -23,9 +23,8 @@ public class FamilyHistory {
     private boolean psychiatrics;
     @Column(name = "other_syndromes")
     private boolean otherSyndromes;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
-    private Patient patient;
+    @Column(name = "patient_id", nullable = false)
+    private Long patientId;
 
 
 }
