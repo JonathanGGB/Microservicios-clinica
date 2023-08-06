@@ -20,6 +20,21 @@
 }
 ```
 
+## Appointment
+
+**POST**
+
+```JSON
+{
+  "patientId": 123,
+  "date": "2023-08-06",
+  "status": "Active",
+  "patientType": "Regular",
+  "sessionNumber": 3,
+  "costs": 100.50
+}
+```
+
 ## Family History
 
 **POST**
