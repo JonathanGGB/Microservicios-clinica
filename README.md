@@ -17,6 +17,6 @@ Integrantes:
 
 ![Diagrama Microservicios](diagrams/Microservices_Architecture.jpeg)
 
-👉 Puede cargar un archivo para usar con Postman las [peticiones configuradas]
+👉 Puede cargar un archivo para usar con Postman las [peticiones configuradas](Clinica.postman_collection 2.json)
 
 👉 Puede probar nuestros microservicios con Postman utilizando las siguientes [estructuras JSON](JSONPetitions.md)
