@@ -225,6 +225,22 @@ Para este caso, será necesario pasar como parámetro en la ruta el ID del respe
 }
 ```
 
+## Family History
+
+**POST**
+
+```JSON
+{
+  "id": 1,
+  "heartDiseases": true,
+  "allergies": false,
+  "diabetes": true,
+  "psychiatrics": false,
+  "otherSyndromes": false,
+  "patientId": 1
+}
+```
+
 ## Complete Medical History
 
 **GET**
