@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "f98c1d1a-2d04-4c7a-8a5e-ca34812fb0d2",
+		"name": "Clinica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28162290",
+		"_collection_link": "https://interstellar-rocket-583690.postman.co/workspace/Clinica~b0c2a369-510d-4851-9ee0-e36f75668333/collection/28162290-f98c1d1a-2d04-4c7a-8a5e-ca34812fb0d2?action=share&creator=28162290&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Patient",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Maria\",\r\n    \"lastnames\": \"Fuentes\",\r\n    \"birthday\": \"2001-07-23\",\r\n    \"address\": \"A19\",\r\n    \"cellphoneNum\": \"998-999-9999\",\r\n    \"email\": \"rgrim@gmail.com\",\r\n    \"maritalStatus\": \"Single\",\r\n    \"schooling\": \"Bachelor's degree\",\r\n    \"occupation\": \"Developer\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6200/records/patient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6200",
+					"path": [
+						"records",
+						"patient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "System",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"humanSystemName\": \"Saguineo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/human_system",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"human_system"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Diagnosis",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"diagnosis\": \"Ya se evaluó los niveles de sangre del paciente\",\r\n    \"humanSystemId\": 102\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/diagnosis",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"diagnosis"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reassessments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reassessment\": \"Cambios positivos en la actividad muscular\",\r\n    \"humanSystemId\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/reassessment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"reassessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "System_disease",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"diseaseName\": \"Tiene bajos de sangre\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/system_disease/102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"system_disease",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Medical History",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"patientId\": 102,\r\n    \"date\": \"2023-08-05\",\r\n    \"diagnosisId\": 2,\r\n    \"treatments\": \"Se realizará tratamiento de la causa subyacente, en este caso, se detectó infección bacteriana.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/medical-history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"medical-history"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Complete medical history",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reassessment\": \"Cambios positivos en la respiración\",\r\n    \"humanSystemId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/complete-medical-history/102/52",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"complete-medical-history",
+						"102",
+						"52"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patient studies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6300/studies/patient-studies/102",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6300",
+					"path": [
+						"studies",
+						"patient-studies",
+						"102"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auth",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"Mary\",\r\n    \"password\": \"1111\",\r\n    \"roles\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6003/auth-service/auth/Mary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6003",
+					"path": [
+						"auth-service",
+						"auth",
+						"Mary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patient record",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"patientId\": 102,\r\n  \"gestationWeeks\": 38,\r\n  \"apgar\": \"8 at 1 minute, 9 at 5 minutes\",\r\n  \"weigh\": 3.2,\r\n  \"heigth\": 50.5,\r\n  \"pregnancyNum\": 2,\r\n  \"birthProblems\": \"None\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6200/records/patient-record/john.doe@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6200",
+					"path": [
+						"records",
+						"patient-record",
+						"john.doe@example.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "General patient data",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6100/admin/general-patient-data/102/52/john.doe@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6100",
+					"path": [
+						"admin",
+						"general-patient-data",
+						"102",
+						"52",
+						"john.doe@example.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Appointment",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"patientId\": 102,\r\n  \"date\": \"2023-08-06\",\r\n  \"status\": \"Active\",\r\n  \"patientType\": \"Regular\",\r\n  \"sessionNumber\": 3,\r\n  \"costs\": 100.50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:6100/admin/appointment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "6100",
+					"path": [
+						"admin",
+						"appointment"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
