@@ -47,21 +47,6 @@
 }
 ```
 
-## Family History
-
-**POST**
-
-```JSON
-{
-  "heartDiseases": true,
-  "allergies": false,
-  "diabetes": true,
-  "psychiatrics": false,
-  "otherSyndromes": null,
-  "patientId": 2
-}
-```
-
 ## Non-pathological personal history
 
 **POST**
