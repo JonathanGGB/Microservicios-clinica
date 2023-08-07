@@ -17,4 +17,6 @@ Integrantes:
 
 ![Diagrama Microservicios](diagrams/Microservices_Architecture.jpeg)
 
-👉Puede probar nuestros microservicios con Postman utilizando las siguientes [peticiones](JSONPetitions.md)
+👉 Puede cargar un archivo para usar con Postman las [peticiones configuradas]
+
+👉 Puede probar nuestros microservicios con Postman utilizando las siguientes [estructuras JSON](JSONPetitions.md)
